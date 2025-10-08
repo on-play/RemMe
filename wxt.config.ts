@@ -8,6 +8,7 @@ export default defineConfig({
     description: 'Remember which email you used on each website',
     version: '1.0.0',
     permissions: ['storage', 'tabs', 'activeTab'],
+    host_permissions: ['<all_urls>'],
     action: {
       default_title: 'RemMe - Remember Your Email',
     },

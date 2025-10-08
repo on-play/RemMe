@@ -95,6 +95,19 @@ async function copyEmail() {
     showToast('Failed to copy email', 'error');
   }
 }
+
+async function testNotification() {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab.id) {
+      await chrome.tabs.sendMessage(tab.id, { type: 'TEST_NOTIFICATION' });
+      showToast('Test notification sent! Check the page.', 'success');
+    }
+  } catch (err) {
+    showToast('Failed to send test notification. Make sure you\'re on a regular webpage.', 'error');
+    console.error('Test notification error:', err);
+  }
+}
 </script>
 
 <template>
@@ -105,6 +118,13 @@ async function copyEmail() {
         <h1 class="text-xl font-bold text-gray-900 dark:text-white">RemMe</h1>
         <p class="text-xs text-gray-500 dark:text-gray-400">Remember your emails</p>
       </div>
+      <button
+        @click="testNotification"
+        class="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+        title="Test auto-detection notification"
+      >
+        Test 🧪
+      </button>
     </header>
 
     <!-- Current Domain Display -->
